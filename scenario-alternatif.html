@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nouveau Scénario - Analyse Complète</title>
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+
+            color: #fff;
+
+            padding: 20px;
+
+            line-height: 1.6;
+
+        }
+
+        .container {
+
+            max-width: 1300px;
+
+            margin: 0 auto;
+
+            background: #fff;
+
+            color: #333;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+
+        }
+
+        .header {
+
+            background: linear-gradient(135deg, #00853f 0%, #fcd116 50%, #e31b23 100%);
+
+            padding: 40px;
+
+            text-align: center;
+
+            position: relative;
+
+        }
+
+        .header::before {
+
+            content: '🦁';
+
+            position: absolute;
+
+            font-size: 120px;
+
+            opacity: 0.1;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+        }
+
+        .header h1 {
+
+            font-size: 2.5em;
+
+            color: #fff;
+
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+            margin-bottom: 10px;
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+        .header p {
+
+            font-size: 1.2em;
+
+            color: #fff;
+
+            font-weight: 300;
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+        .content {
+
+            padding: 40px;
+
+        }
+
+        .alert-box {
+
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+
+            border-left: 5px solid #fcd116;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            margin-bottom: 30px;
+
+        }
+
+        .alert-box h3 {
+
+            color: #856404;
+
+            margin-bottom: 10px;
+
+            font-size: 1.3em;
+
+        }
+
+        .alert-box p {
+
+            color: #856404;
+
+            line-height: 1.7;
+
+        }
+
+        .section {
+
+            margin-bottom: 40px;
+
+        }
+
+        .section-title {
+
+            color: #00853f;
+
+            font-size: 2em;
+
+            margin-bottom: 20px;
+
+            padding-bottom: 15px;
+
+            border-bottom: 3px solid #fcd116;
+
+        }
+
+        .scenario-box {
+
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            margin-bottom: 30px;
+
+            border-left: 5px solid #00853f;
+
+        }
+
+        .day-item {
+
+            background: white;
+
+            padding: 15px;
+
+            margin: 10px 0;
+
+            border-radius: 10px;
+
+            border-left: 4px solid #00853f;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+        }
+
+        .day-item h4 {
+
+            color: #00853f;
+
+            margin-bottom: 8px;
+
+            font-size: 1.1em;
+
+        }
+
+        .day-item p {
+
+            color: #555;
+
+            font-size: 0.95em;
+
+        }
+
+        .problem-section {
+
+            margin: 30px 0;
+
+        }
+
+        .problem-card {
+
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+
+            border-left: 5px solid #e31b23;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .problem-card h3 {
+
+            color: #c62828;
+
+            margin-bottom: 15px;
+
+            font-size: 1.4em;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+        .problem-card .icon {
+
+            font-size: 1.5em;
+
+        }
+
+        .problem-details {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            margin-top: 15px;
+
+        }
+
+        .problem-details ul {
+
+            list-style: none;
+
+            padding: 0;
+
+        }
+
+        .problem-details li {
+
+            padding: 8px 0 8px 25px;
+
+            position: relative;
+
+            color: #555;
+
+            line-height: 1.6;
+
+        }
+
+        .problem-details li::before {
+
+            content: '⚠️';
+
+            position: absolute;
+
+            left: 0;
+
+        }
+
+        .comparison-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+
+            margin: 30px 0;
+
+        }
+
+        .comparison-card {
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            border: 2px solid #ddd;
+
+        }
+
+        .comparison-card.winner {
+
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+
+            border-color: #00853f;
+
+        }
+
+        .comparison-card.loser {
+
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+
+            border-color: #e31b23;
+
+        }
+
+        .comparison-card h3 {
+
+            margin-bottom: 15px;
+
+            font-size: 1.3em;
+
+        }
+
+        .comparison-card.winner h3 {
+
+            color: #2e7d32;
+
+        }
+
+        .comparison-card.loser h3 {
+
+            color: #c62828;
+
+        }
+
+        .stat-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 10px 0;
+
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+
+        }
+
+        .stat-item:last-child {
+
+            border-bottom: none;
+
+        }
+
+        .stat-label {
+
+            font-weight: 600;
+
+            color: #555;
+
+        }
+
+        .stat-value {
+
+            font-weight: bold;
+
+        }
+
+        .stat-value.good {
+
+            color: #00853f;
+
+        }
+
+        .stat-value.bad {
+
+            color: #e31b23;
+
+        }
+
+        .timeline {
+
+            position: relative;
+
+            padding: 20px 0;
+
+        }
+
+        .timeline-item {
+
+            position: relative;
+
+            padding-left: 40px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .timeline-item::before {
+
+            content: '';
+
+            position: absolute;
+
+            left: 10px;
+
+            top: 0;
+
+            bottom: -20px;
+
+            width: 2px;
+
+            background: #ddd;
+
+        }
+
+        .timeline-item:last-child::before {
+
+            display: none;
+
+        }
+
+        .timeline-dot {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 5px;
+
+            width: 20px;
+
+            height: 20px;
+
+            border-radius: 50%;
+
+            background: #00853f;
+
+            border: 3px solid white;
+
+            box-shadow: 0 0 0 2px #00853f;
+
+        }
+
+        .timeline-dot.warning {
+
+            background: #fcd116;
+
+            box-shadow: 0 0 0 2px #fcd116;
+
+        }
+
+        .timeline-dot.danger {
+
+            background: #e31b23;
+
+            box-shadow: 0 0 0 2px #e31b23;
+
+        }
+
+        .fatigue-bar {
+
+            background: #f5f5f5;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin: 20px 0;
+
+        }
+
+        .fatigue-bar h4 {
+
+            margin-bottom: 15px;
+
+            color: #00853f;
+
+        }
+
+        .bar-container {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin: 10px 0;
+
+        }
+
+        .bar-label {
+
+            min-width: 80px;
+
+            font-size: 0.9em;
+
+            color: #666;
+
+        }
+
+        .bar {
+
+            flex: 1;
+
+            height: 25px;
+
+            background: #e0e0e0;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+        .bar-fill {
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            padding-right: 10px;
+
+            color: white;
+
+            font-weight: bold;
+
+            font-size: 0.85em;
+
+            transition: width 0.5s ease;
+
+        }
+
+        .bar-fill.low {
+
+            background: linear-gradient(90deg, #00853f 0%, #4caf50 100%);
+
+            width: 30%;
+
+        }
+
+        .bar-fill.medium {
+
+            background: linear-gradient(90deg, #fcd116 0%, #ffd54f 100%);
+
+            width: 60%;
+
+        }
+
+        .bar-fill.high {
+
+            background: linear-gradient(90deg, #ff9800 0%, #ffb74d 100%);
+
+            width: 85%;
+
+        }
+
+        .bar-fill.critical {
+
+            background: linear-gradient(90deg, #e31b23 0%, #e57373 100%);
+
+            width: 95%;
+
+        }
+
+        .verdict-box {
+
+            background: linear-gradient(135deg, #e31b23 0%, #c62828 100%);
+
+            color: white;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            margin: 40px 0;
+
+            text-align: center;
+
+        }
+
+        .verdict-box h2 {
+
+            font-size: 2.5em;
+
+            margin-bottom: 20px;
+
+        }
+
+        .verdict-box p {
+
+            font-size: 1.2em;
+
+            line-height: 1.8;
+
+            margin-bottom: 15px;
+
+        }
+
+        .recommendation-box {
+
+            background: linear-gradient(135deg, #00853f 0%, #00a04d 100%);
+
+            color: white;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            margin: 40px 0;
+
+        }
+
+        .recommendation-box h2 {
+
+            font-size: 2em;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+        }
+
+        .recommendation-box p {
+
+            font-size: 1.1em;
+
+            line-height: 1.8;
+
+            margin-bottom: 15px;
+
+        }
+
+        .reasons-list {
+
+            background: rgba(255,255,255,0.1);
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            margin-top: 20px;
+
+        }
+
+        .reasons-list li {
+
+            padding: 10px 0;
+
+            font-size: 1.05em;
+
+            list-style: none;
+
+            padding-left: 30px;
+
+            position: relative;
+
+        }
+
+        .reasons-list li::before {
+
+            content: '✓';
+
+            position: absolute;
+
+            left: 5px;
+
+            font-weight: bold;
+
+            font-size: 1.3em;
+
+        }
+
+        .nav-link {
+
+            display: inline-block;
+
+            background: linear-gradient(135deg, #00853f 0%, #00a04d 100%);
+
+            color: white;
+
+            padding: 10px 25px;
+
+            border-radius: 20px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            margin: 15px 10px;
+
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        }
+
+        .nav-link:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 4px 12px rgba(0, 133, 63, 0.4);
+
+        }
+
+        a[href*="scenario-alternatif"]:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 6px 16px rgba(227, 27, 35, 0.5);
+
+        }
+
+        .footer {
+
+            background: #1a1a1a;
+
+            color: white;
+
+            padding: 30px;
+
+            text-align: center;
+
+        }
+
+        .dynors-badge {
+
+            display: inline-block;
+
+            background: linear-gradient(135deg, #fcd116 0%, #ffed4e 100%);
+
+            color: #1a1a1a;
+
+            padding: 10px 25px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            margin-top: 15px;
+
+        }
+
+        @media (max-width: 768px) {
+
+            .comparison-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .content {
+
+                padding: 20px;
+
+            }
+
+            .header h1 {
+
+                font-size: 1.8em;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>🔍 NOUVEAU SCÉNARIO</h1>
+
+            <p>Analyse Complète - Pourquoi Cette Option Ne Fonctionne Pas</p>
+
+        </div>
+
+        <div class="content">
+
+            <div style="margin: 20px 0; text-align: center;">
+
+                <a href="index.html" class="nav-link">📅 Retour au Planning</a>
+
+                <a href="comparaison.html" class="nav-link">📊 Voir l'Analyse Comparative</a>
+
+            </div>
+
+            <div class="alert-box">
+
+                <h3>📢 Note pour le Groupe</h3>
+
+                <p>J'ai exploré une nouvelle option qui inclurait Rabat, Fès ET Marrakech pour maximiser la découverte. Voici pourquoi, après analyse, nous allons écarter cette option et rester sur notre plan initial.</p>
+
+            </div>
+
+            <section class="section">
+
+                <h2 class="section-title">📋 Le Nouveau Scénario Proposé</h2>
+
+                
+
+                <div class="scenario-box">
+
+                    <div class="day-item">
+
+                        <h4>21-22 déc - Tanger</h4>
+
+                        <p>Arrivée + découverte</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>🦁 23 déc - Match Sénégal vs Botswana à Tanger</h4>
+
+                        <p>Premier match CAN</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>24 déc - Tanger → Rabat (1h20 train)</h4>
+
+                        <p>1 nuit à Rabat - Visite médina, Tour Hassan, Oudayas</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>25 déc - Rabat → Fès (2h20 train)</h4>
+
+                        <p>1 nuit à Fès - Médina, tanneries, Palais Royal</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>26 déc - Fès → Marrakech (6h33 train) ⚠️</h4>
+
+                        <p>1 nuit à Marrakech - Arrivée fatiguée, juste dormir</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>27 déc - Marrakech → Tanger (5h30-6h train) ⚠️</h4>
+
+                        <p>Réveil tôt + long trajet → Match à 16h</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>🦁 27 déc - Match Sénégal vs RD Congo à Tanger</h4>
+
+                        <p>Arrivée fatigués pour le match</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>28 déc - Chefchaouen (optionnel)</h4>
+
+                        <p>Excursion ville bleue</p>
+
+                    </div>
+
+                    <div class="day-item">
+
+                        <h4>29 déc - Vol retour 8h</h4>
+
+                        <p>Retour France</p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="section">
+
+                <h2 class="section-title">⚠️ Les Problèmes Majeurs Identifiés</h2>
+
+                <div class="problem-section">
+
+                    <div class="problem-card">
+
+                        <h3><span class="icon">🚂</span> Problème #1 : Train de 6h33 le 26 décembre</h3>
+
+                        <div class="problem-details">
+
+                            <p style="margin-bottom: 15px; font-weight: 600; color: #c62828;">Fès → Marrakech = 6 heures 33 minutes de train</p>
+
+                            <ul>
+
+                                <li>Nous allons être assis dans un train pendant presque 7 heures</li>
+
+                                <li>Arrivée à Marrakech en fin de journée, fatigués</li>
+
+                                <li>À peine le temps de voir Jemaa El-Fna avant de dormir</li>
+
+                                <li>Lendemain : réveil tôt pour repartir vers Tanger</li>
+
+                                <li><strong>Résultat : Nous ne profitons pas vraiment de Marrakech</strong></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="problem-card">
+
+                        <h3><span class="icon">😴</span> Problème #2 : Accumulation de Fatigue</h3>
+
+                        <div class="problem-details">
+
+                            <p style="margin-bottom: 15px; font-weight: 600; color: #c62828;">Nous allons enchaîner trop de trajets longs sans repos</p>
+
+                            <ul>
+
+                                <li><strong>24 déc :</strong> Train 1h20 (Tanger → Rabat)</li>
+
+                                <li><strong>25 déc :</strong> Train 2h20 (Rabat → Fès)</li>
+
+                                <li><strong>26 déc :</strong> Train 6h33 (Fès → Marrakech) 😱</li>
+
+                                <li><strong>27 déc :</strong> Train 5h30-6h (Marrakech → Tanger) 😱</li>
+
+                            </ul>
+
+                            <p style="margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 5px; color: #856404;">
+
+                                <strong>Total :</strong> Nous allons passer plus de 15 heures dans les trains en 4 jours consécutifs
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="problem-card">
+
+                        <h3><span class="icon">🏙️</span> Problème #3 : Marrakech Sacrifiée</h3>
+
+                        <div class="problem-details">
+
+                            <p style="margin-bottom: 15px; font-weight: 600; color: #c62828;">Marrakech mérite minimum 2 nuits - Nous allons lui donner 1 seule</p>
+
+                            <ul>
+
+                                <li>Marrakech est LA ville la plus iconique du Maroc</li>
+
+                                <li>Jemaa El-Fna de jour ET de nuit sont deux expériences différentes</li>
+
+                                <li>Jardin Majorelle + Souks + Palais Bahia = impossible en quelques heures</li>
+
+                                <li>Nous allons arriver fatigués et repartir le lendemain matin</li>
+
+                                <li><strong>C'est la ville qu'on va le plus regretter de mal visiter</strong></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="problem-card">
+
+                        <h3><span class="icon">⚽</span> Problème #4 : Arrivée Fatiguée au Match du 27</h3>
+
+                        <div class="problem-details">
+
+                            <p style="margin-bottom: 15px; font-weight: 600; color: #c62828;">Nous allons arriver épuisés pour le 2e match du Sénégal</p>
+
+                            <ul>
+
+                                <li>Réveil tôt à Marrakech (6h-7h)</li>
+
+                                <li>Train de 5h30-6h vers Tanger</li>
+
+                                <li>Arrivée vers 13h-14h, déjà fatigués</li>
+
+                                <li>Match à 16h = Nous n'allons pas profiter de l'ambiance à 100%</li>
+
+                                <li>Contrairement au match du 23 où nous serons frais et dispos</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="problem-card">
+
+                        <h3><span class="icon">💰</span> Problème #5 : Budget Transport Plus Élevé</h3>
+
+                        <div class="problem-details">
+
+                            <p style="margin-bottom: 15px; font-weight: 600; color: #c62828;">Tous ces trajets supplémentaires coûtent cher</p>
+
+                            <ul>
+
+                                <li>Train Tanger → Rabat : ~15€</li>
+
+                                <li>Train Rabat → Fès : ~10€</li>
+
+                                <li>Train Fès → Marrakech : ~25€</li>
+
+                                <li>Train Marrakech → Tanger : ~30€</li>
+
+                                <li><strong>Total trains : ~80€ vs ~30€ dans l'option initiale</strong></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="section">
+
+                <h2 class="section-title">📊 Visualisation de la Fatigue</h2>
+
+                
+
+                <div class="fatigue-bar">
+
+                    <h4>Niveau de fatigue par jour - Nouveau Scénario</h4>
+
+                    
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">24 déc</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill medium">60%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">25 déc</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill high">75%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">26 déc</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill critical">90%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">27 déc (Match)</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill critical">95%</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="fatigue-bar">
+
+                    <h4>Niveau de fatigue par jour - Option 1 (Original)</h4>
+
+                    
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">24 déc</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill low">30%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">25 déc</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill low">30%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">26 déc</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill medium">45%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bar-container">
+
+                        <div class="bar-label">27 déc (Match)</div>
+
+                        <div class="bar">
+
+                            <div class="bar-fill medium">55%</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="section">
+
+                <h2 class="section-title">⚖️ Comparaison Directe</h2>
+
+                
+
+                <div class="comparison-grid">
+
+                    <div class="comparison-card loser">
+
+                        <h3>❌ Nouveau Scénario</h3>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Nuits Marrakech</span>
+
+                            <span class="stat-value bad">1 seule 😢</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Train le plus long</span>
+
+                            <span class="stat-value bad">6h33</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Temps total en train</span>
+
+                            <span class="stat-value bad">~15h</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Fatigue au match 27</span>
+
+                            <span class="stat-value bad">Élevée (95%)</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Budget trains</span>
+
+                            <span class="stat-value bad">~80€</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Villes bien visitées</span>
+
+                            <span class="stat-value bad">2-3</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Qualité expérience</span>
+
+                            <span class="stat-value bad">6/10</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Score final</span>
+
+                            <span class="stat-value bad">65/100</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="comparison-card winner">
+
+                        <h3>✅ Option 1 (Original)</h3>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Nuits Marrakech</span>
+
+                            <span class="stat-value good">2 complètes 🔥</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Train le plus long</span>
+
+                            <span class="stat-value good">6h (une fois)</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Temps total en train</span>
+
+                            <span class="stat-value good">~8h</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Fatigue au match 27</span>
+
+                            <span class="stat-value good">Modérée (55%)</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Budget trains</span>
+
+                            <span class="stat-value good">~30€</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Villes bien visitées</span>
+
+                            <span class="stat-value good">3-4</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Qualité expérience</span>
+
+                            <span class="stat-value good">9/10</span>
+
+                        </div>
+
+                        <div class="stat-item">
+
+                            <span class="stat-label">Score final</span>
+
+                            <span class="stat-value good">95/100</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="verdict-box">
+
+                <h2>🚫 VERDICT FINAL</h2>
+
+                <p style="font-size: 1.4em; font-weight: bold; margin-bottom: 25px;">Ce nouveau scénario ne fonctionne pas</p>
+
+                <p>Nous allons passer trop de temps dans les trains et pas assez de temps à vraiment profiter des villes.</p>
+
+                <p>Marrakech, la ville la plus importante à voir, sera sacrifiée avec une seule nuit.</p>
+
+                <p>Nous allons arriver fatigués au match du 27, alors que c'est l'un des moments forts du voyage.</p>
+
+                <p style="font-weight: bold; font-size: 1.2em; margin-top: 25px;">Cette option tombe à l'eau. ❌</p>
+
+            </div>
+
+            <div class="recommendation-box">
+
+                <h2>✅ RECOMMANDATION : Nous Restons sur l'Option 1</h2>
+
+                <p><strong>Pourquoi l'Option 1 reste la meilleure :</strong></p>
+
+                
+
+                <ul class="reasons-list">
+
+                    <li><strong>Marrakech bien visitée</strong> : 2 nuits complètes pour vraiment en profiter</li>
+
+                    <li><strong>Moins de fatigue</strong> : Nous arrivons en forme au match du 27</li>
+
+                    <li><strong>Budget maîtrisé</strong> : 50€ d'économie sur les trains = plus de budget pour activités et restos</li>
+
+                    <li><strong>Qualité > Quantité</strong> : Mieux vaut bien voir 4 villes que mal en voir 6</li>
+
+                    <li><strong>Chefchaouen inclus</strong> : La ville bleue est déjà prévue le 28 dans l'Option 1</li>
+
+                    <li><strong>Expérience optimale</strong> : Équilibre parfait entre voyage, football et repos</li>
+
+                </ul>
+
+                <p style="margin-top: 30px; padding: 25px; background: rgba(255,255,255,0.15); border-radius: 10px; font-size: 1.2em; text-align: center;">
+
+                    <strong>La règle d'or du voyage :</strong><br>
+
+                    Mieux vaut BIEN voir 4 villes que MAL en voir 6 ! 🎯
+
+                </p>
+
+            </div>
+
+            <section class="section">
+
+                <h2 class="section-title">💡 Conclusion pour le Groupe</h2>
+
+                
+
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; border-left: 5px solid #00853f;">
+
+                    <p style="color: #555; line-height: 1.8; font-size: 1.05em; margin-bottom: 15px;">
+
+                        J'ai voulu explorer si nous pouvions ajouter Fès et Rabat pour enrichir l'expérience. Après analyse détaillée, la réponse est non.
+
+                    </p>
+
+                    <p style="color: #555; line-height: 1.8; font-size: 1.05em; margin-bottom: 15px;">
+
+                        <strong>Nous allons sacrifier la qualité de l'expérience</strong> en voulant tout voir en 9 jours. Les 6h33 de train le 26 + le long trajet le 27 avant le match sont des points bloquants.
+
+                    </p>
+
+                    <p style="color: #555; line-height: 1.8; font-size: 1.05em; margin-bottom: 15px;">
+
+                        <strong>L'Option 1 reste notre meilleur plan</strong> parce qu'elle nous permet de :
+
+                    </p>
+
+                    <ul style="list-style: none; padding: 0; color: #555;">
+
+                        <li style="padding: 8px 0; padding-left: 30px; position: relative;">
+
+                            <span style="position: absolute; left: 5px; color: #00853f; font-weight: bold;">→</span>
+
+                            Vraiment profiter de Marrakech (2 nuits)
+
+                        </li>
+
+                        <li style="padding: 8px 0; padding-left: 30px; position: relative;">
+
+                            <span style="position: absolute; left: 5px; color: #00853f; font-weight: bold;">→</span>
+
+                            Être en forme pour les 2 matchs du Sénégal
+
+                        </li>
+
+                        <li style="padding: 8px 0; padding-left: 30px; position: relative;">
+
+                            <span style="position: absolute; left: 5px; color: #00853f; font-weight: bold;">→</span>
+
+                            Voir Chefchaouen (ville bleue iconique)
+
+                        </li>
+
+                        <li style="padding: 8px 0; padding-left: 30px; position: relative;">
+
+                            <span style="position: absolute; left: 5px; color: #00853f; font-weight: bold;">→</span>
+
+                            Ne pas passer notre vie dans les trains
+
+                        </li>
+
+                        <li style="padding: 8px 0; padding-left: 30px; position: relative;">
+
+                            <span style="position: absolute; left: 5px; color: #00853f; font-weight: bold;">→</span>
+
+                            Économiser 50€ par personne sur les transports
+
+                        </li>
+
+                    </ul>
+
+                    <p style="color: #00853f; line-height: 1.8; font-size: 1.15em; margin-top: 25px; font-weight: bold; text-align: center;">
+
+                        On garde Fès et Rabat pour un prochain voyage au Maroc ! 🇲🇦✨
+
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <div class="footer">
+
+            <div style="margin: 20px 0;">
+
+                <a href="index.html" class="nav-link">📅 Retour au Planning</a>
+
+                <a href="comparaison.html" class="nav-link">📊 Voir l'Analyse Comparative</a>
+
+            </div>
+
+            <p style="margin-bottom: 15px; font-size: 1.1em;">Analyse complète et objective du nouveau scénario</p>
+
+            <p style="opacity: 0.8;">Conclusion : L'Option 1 reste la meilleure stratégie pour notre groupe</p>
+
+            <div class="dynors-badge">
+
+                ⚡ Analyse DYNORS - Voyage Maroc CAN 2025
+
+            </div>
+
+            <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9em;">
+
+                🦁 Allez les Lions ! 🇸🇳
+
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
